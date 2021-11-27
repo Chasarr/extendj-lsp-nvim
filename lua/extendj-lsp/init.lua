@@ -82,7 +82,7 @@ local cmd
   local java_lsp_config = {
     name = "extendj-lsp",
     --cmd = { get_java_executable(), '-jar', '/home/chasar/lsp-charlie-jonathan/server_java/lsp.jar', '--stdio'}
-	cmd = cmd,
+	cmd,
 	on_attach = on_attach
   }
 
