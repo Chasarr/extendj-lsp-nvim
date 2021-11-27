@@ -1,3 +1,4 @@
+local util = require 'lspconfig.util'
 local sysname = vim.loop.os_uname().sysname
 local env = {
 	HOME = vim.loop.os_homedir(),
@@ -9,12 +10,6 @@ local function get_java_executable()
 
 	return sysname:match 'Windows' and executable .. '.exe' or executable
 end
-
-
-
-
-
-
 
  -- Some path manipulation utilities
   local function is_dir(filename)
@@ -73,18 +68,26 @@ end
   }
 
 
+
+local on_attach
+local cmd
+  local function setup(config)
+	on_attach = config.on_attach
+	cmd = config.on_attach
+  end
+
   -- Create a template configuration for a server to start, minus the root_dir
   -- which we will specify later.
   local java_lsp_config = {
-    name = "extendj-lsp";
-    cmd = { get_java_executable(), '-jar', '/home/chasar/lsp-charlie-jonathan/server_java/lsp.jar', '--stdio'}
+    name = "extendj-lsp",
+    --cmd = { get_java_executable(), '-jar', '/home/chasar/lsp-charlie-jonathan/server_java/lsp.jar', '--stdio'}
+	cmd,
+	on_attach = on_attach
   }
-
 
   -- This needs to be global so that we can call it from the autocmd.
   --function check_start_java_lsp(on_attach)
-  function check_start_java_lsp()
-	print('hmmmmmmmmmmmmmmmmmmmmmmmmmmmm')
+  local function start_extendj()
     local bufnr = vim.api.nvim_get_current_buf()
     -- Filter which files we are considering.
     if not java_filetypes[vim.api.nvim_buf_get_option(bufnr, 'filetype')] then
@@ -115,9 +118,9 @@ end
     vim.lsp.buf_attach_client(bufnr, client_id)
   end
 
-  vim.api.nvim_command [[autocmd BufReadPost * lua check_start_java_lsp()]] --Why is this not working!?
-  vim.api.nvim_command [[autocmd BufReadPost * lua print('bruh momemmmmmmmmario oddessyyy')]] --Why is this not working!?
+  --vim.api.nvim_command [[autocmd BufReadPost * lua check_start_java_lsp()]] --Why is this not working!?
 
   return {
-	  check_start_java_lsp = check_start_java_lsp
+	  setup = setup,
+	  start_extendj = start_extendj
   }
