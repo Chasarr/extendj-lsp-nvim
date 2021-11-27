@@ -1,16 +1,3 @@
-local util = require 'lspconfig.util'
-local sysname = vim.loop.os_uname().sysname
-local env = {
-	HOME = vim.loop.os_homedir(),
-	JAVA_HOME = os.getenv 'JAVA_HOME',
-	WORKSPACE = os.getenv 'WORKSPACE',
-}
-local function get_java_executable()
-	local executable = env.JAVA_HOME and util.path.join(env.JAVA_HOME, 'bin', 'java') or 'java'
-
-	return sysname:match 'Windows' and executable .. '.exe' or executable
-end
-
  -- Some path manipulation utilities
   local function is_dir(filename)
     local stat = vim.loop.fs_stat(filename)
