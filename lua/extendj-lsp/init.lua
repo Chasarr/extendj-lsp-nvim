@@ -87,7 +87,7 @@ local cmd
 
   -- This needs to be global so that we can call it from the autocmd.
   --function check_start_java_lsp(on_attach)
-  local function start_extendj()
+function start_extendj()
     local bufnr = vim.api.nvim_get_current_buf()
     -- Filter which files we are considering.
     if not java_filetypes[vim.api.nvim_buf_get_option(bufnr, 'filetype')] then
