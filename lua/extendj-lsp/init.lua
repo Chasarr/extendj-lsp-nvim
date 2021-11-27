@@ -68,23 +68,22 @@ end
   }
 
 
-
-local on_attach
-local cmd
-  local function setup(config)
-	print('starting setup...')
-	on_attach = config.on_attach
-	cmd = config.on_attach
-  end
-
   -- Create a template configuration for a server to start, minus the root_dir
   -- which we will specify later.
   local java_lsp_config = {
     name = "extendj-lsp",
     --cmd = { get_java_executable(), '-jar', '/home/chasar/lsp-charlie-jonathan/server_java/lsp.jar', '--stdio'}
-	cmd,
-	on_attach = on_attach
+	--cmd = cmd,
+	--on_attach = on_attach
   }
+
+  local function setup(config)
+	print('starting setup...')
+	java_lsp_config.on_attach = config.on_attach
+	java_lsp_config.cmd = config.cmd
+	print(java_lsp_config.cmd)
+  end
+
 
   -- This needs to be global so that we can call it from the autocmd.
   --function check_start_java_lsp(on_attach)
@@ -95,17 +94,17 @@ function start_extendj()
 	  print('Not a java file')
       return
     end
-	if cmd == nil then
+
+	if java_lsp_config.cmd == nil then
 		print('cmd is nil')
 	else
-		print('cmd = '..cmd)
+		print(java_lsp_config.cmd)
 	end
-	if on_attach == nil then
+	if java_lsp_config.on_attach == nil then
 		print('on_attach is nil')
 	else
-		print('on_attach = '..cmd)
+		print(java_lsp_config.on_attach)
 	end
-	if 
     -- Try to find our root directory. We will define this as a directory which contains
     -- node_modules. Another choice would be to check for `package.json`, or for `.git`.
     local root_dir = buffer_find_root_dir(bufnr, function(dir)
