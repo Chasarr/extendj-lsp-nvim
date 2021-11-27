@@ -78,10 +78,8 @@ end
   }
 
   local function setup(config)
-	print('starting setup...')
 	java_lsp_config.on_attach = config.on_attach
 	java_lsp_config.cmd = config.cmd
-	print(java_lsp_config.cmd)
   end
 
 
@@ -91,19 +89,14 @@ function start_extendj()
     local bufnr = vim.api.nvim_get_current_buf()
     -- Filter which files we are considering.
     if not java_filetypes[vim.api.nvim_buf_get_option(bufnr, 'filetype')] then
-	  print('Not a java file')
       return
     end
 
 	if java_lsp_config.cmd == nil then
 		print('cmd is nil')
-	else
-		print(java_lsp_config.cmd)
 	end
 	if java_lsp_config.on_attach == nil then
 		print('on_attach is nil')
-	else
-		print(java_lsp_config.on_attach)
 	end
     -- Try to find our root directory. We will define this as a directory which contains
     -- node_modules. Another choice would be to check for `package.json`, or for `.git`.
