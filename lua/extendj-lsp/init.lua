@@ -115,3 +115,8 @@ end
   end
 
   vim.api.nvim_command [[autocmd BufReadPost * lua check_start_java_lsp()]] --Why is this not working!?
+  vim.api.nvim_command [[autocmd BufReadPost * lua print('bruh momemmmmmmmmario oddessyyy')]] --Why is this not working!?
+
+  return {
+	  check_start_java_lsp = check_start_java_lsp
+  }
