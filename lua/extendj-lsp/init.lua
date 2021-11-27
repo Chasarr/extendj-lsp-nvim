@@ -95,6 +95,17 @@ function start_extendj()
 	  print('Not a java file')
       return
     end
+	if cmd == nil then
+		print('cmd is nil')
+	else
+		print('cmd = '..cmd)
+	end
+	if on_attach == nil then
+		print('on_attach is nil')
+	else
+		print('on_attach = '..cmd)
+	end
+	if 
     -- Try to find our root directory. We will define this as a directory which contains
     -- node_modules. Another choice would be to check for `package.json`, or for `.git`.
     local root_dir = buffer_find_root_dir(bufnr, function(dir)
