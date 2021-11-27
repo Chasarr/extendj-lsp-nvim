@@ -72,6 +72,7 @@ end
 local on_attach
 local cmd
   local function setup(config)
+	print('starting setup...')
 	on_attach = config.on_attach
 	cmd = config.on_attach
   end
