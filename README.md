@@ -33,4 +33,5 @@ To implement a client config, call `require('extendj-lsp').setup(config)` contai
 config = {
 	cmd = {get_java_executable(), '-jar', '/PATH/TO/lsp.jar', '--stdio'},	--Contains the lsp.jar executable
 	on_attach = on_attach		--on_attach on the right hand side contains a callback function which activates when the buffer starts. This usually contains LSP hotkeys
+}
 ```
