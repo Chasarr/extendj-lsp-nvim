@@ -1,7 +1,9 @@
 ---- Extendj-lsp client configuration ----
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
+local util = require 'lspconfig.util'
 
 -- Code to access java
-local util = require 'lspconfig.util'
 local sysname = vim.loop.os_uname().sysname
 local env = {
 	HOME = vim.loop.os_homedir(),
@@ -14,15 +16,18 @@ local function get_java_executable()
 	return sysname:match 'Windows' and executable .. '.exe' or executable
 end
 
--- Setup function. Should behave similar to how other language servers are activated
+-- extendj-lsp setup
 local M = {}
 function M.setup(on_attach)
-	local cmd = {get_java_executable(), '-jar', '/PATH/TO/lsp.jar', '--stdio'}
-	local config = {
-		on_attach = on_attach,
-		cmd = cmd
+	if not configs.extendj_lsp then
+		configs.extendj_lsp= {
+		default_config = {
+			cmd = {get_java_executable(), '-jar', '/PATH/TO/lsp.jar', '--stdio'},
+			root_dir = lspconfig.util.root_pattern('.git', '.gradle'),
+			filetypes = { 'java' }
+		},
 	}
-	require('extendj-lsp').setup(config)
+	end
+	lspconfig.extendj_lsp.setup{on_attach = on_attach}
 end
-
 return M

@@ -6,7 +6,4 @@ return require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
 	--lspconfig with some handy lsp tools
 	use 'neovim/nvim-lspconfig'
-
-	--extendj-lsp
-	use 'Chasarr/extendj-lsp-nvim'
 end)
